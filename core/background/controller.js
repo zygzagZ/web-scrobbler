@@ -358,6 +358,11 @@ define([
 			return currentSong === null ? {} : currentSong.attr();
 		};
 
+
+		this.getSong = function() {
+			return currentSong;
+		};
+
 		/**
 		 * Sets data for current song from user input
 		 * TODO: check if all is ok for case when song is already valid

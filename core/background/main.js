@@ -58,6 +58,10 @@ require([
 	 */
 	let isActiveSession = false;
 
+	let ports = [];
+
+
+
 	/**
 	 * Return controller for given tab. There should always be one.
 	 * @param  {Number} tabId Tab ID
@@ -78,6 +82,8 @@ require([
 		chrome.pageAction.onClicked.addListener(onPageActionClicked);
 
 		chrome.runtime.onMessage.addListener(onMessage);
+		chrome.runtime.onConnectExternal.addListener(onConnect);
+
 	}
 
 	/**
@@ -94,6 +100,22 @@ require([
 			case 'v2.stateChanged':
 				ctrl = getControllerByTabId(sender.tab.id);
 				if (ctrl) {
+
+					var song = ctrl.getSong();
+					console.log('getSong: ', song);
+					if (song) {
+						var response = {
+							type: 'v2.songData',
+							artist: song.getArtist(),
+							title: song.getTrack(),
+							art: song.getTrackArt(),
+							empty: song.isEmpty(),
+							sourceTabId: sender.tab.id
+						};
+						ports.forEach((port)=>{
+							port.postMessage(response);
+						});
+					}
 					ctrl.onStateChanged(request.state);
 				}
 				break;
@@ -141,6 +163,12 @@ require([
 		return true;
 	}
 
+	function onConnect(port) {
+		ports.push(port);
+		port.onDisconnect.addListener(()=>{
+			ports.splice(ports.indexOf(port), 1);
+		});
+	}
 	/**
 	 * Called when user clicks on page action icon.
 	 * @param  {Objeect} tab Tab object
