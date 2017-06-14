@@ -90,18 +90,18 @@ var BaseConnector = window.BaseConnector || function () {
 	 * Only applies when default implementation of
 	 * {@link BaseConnector#getArtistTrack} is used.
 	 *
-	 * @type {string}
+	 * @type {String}
 	 */
 	this.artistTrackSelector = null;
 
 	/**
-	 * Selector of an play button element. If the element is not visible,
+	 * Selector of a play button element. If the element is not visible,
 	 * the playback is considered to be playing.
 	 *
 	 * Only applies when default implementation of
 	 * {@link BaseConnector#isPlaying} is used.
 	 *
-	 * @type {string}
+	 * @type {String}
 	 */
 	this.playButtonSelector = null;
 
@@ -112,19 +112,22 @@ var BaseConnector = window.BaseConnector || function () {
 	 * Set this selector to use with default {@link MutationEvent} observing or
 	 * set up some custom detection of player state changing.
 	 *
-	 * @type {string}
+	 * @type {String}
 	 */
 	this.playerSelector = null;
 
 	/**
-	 * Selector of image used to represent the track being played. is used for
-	 * the notification service.
+	 * Selector of element contains a track art of now playing song.
+	 * Default implmentation looks for track art URL in 'src' attribute or
+	 * 'background-image' ('background') CSS property of given element.
+	 *
+	 * Used for the notification service and "Now playing" popup.
 	 *
 	 * If not specified will fall back to Last.fm API.
 	 *
-	 * @type {string}
+	 * @type {String}
 	 */
-	this.trackArtImageSelector = null;
+	this.trackArtSelector = null;
 
 	/**
 	 * Default implementation of artist name lookup by selector.
@@ -169,7 +172,7 @@ var BaseConnector = window.BaseConnector || function () {
 	 * @return {Number} Track length in seconds
 	 */
 	this.getDuration = function () {
-		var text = $(this.durationSelector).text();
+		let text = $(this.durationSelector).text();
 		return Util.stringToSeconds(text);
 	};
 
@@ -182,21 +185,21 @@ var BaseConnector = window.BaseConnector || function () {
 	 * @return {Number} Number of seconds passed from the beginning of the track
 	 */
 	this.getCurrentTime = function () {
-		var text = $(this.currentTimeSelector).text();
+		let text = $(this.currentTimeSelector).text();
 		return Util.stringToSeconds(text);
 	};
 
 	/**
 	 * Default implementation of current time and duration lookup by selector.
-	 * This method is called only when {@link BaseConnector#getArtist} and
-	 * {@link BaseConnector#getTrack} return an empty result.
+	 * This method is called only when {@link BaseConnector#getCurrentTime} and
+	 * {@link BaseConnector#getDuration} return an empty result.
 	 *
 	 * Override this method for more complex behaviour.
 	 *
 	 * @return {Object} Object contains current time and duration info
 	 */
 	this.getTimeInfo = function () {
-		var text = $(this.timeInfoSelector).text();
+		let text = $(this.timeInfoSelector).text();
 		return Util.splitTimeInfo(text);
 	};
 
@@ -210,7 +213,7 @@ var BaseConnector = window.BaseConnector || function () {
 	 * @return {Object} Object contain artist and track information
 	 */
 	this.getArtistTrack = function () {
-		var text = $(this.artistTrackSelector).text();
+		let text = $(this.artistTrackSelector).text();
 		return Util.splitArtistTrack(text);
 	};
 
@@ -256,15 +259,15 @@ var BaseConnector = window.BaseConnector || function () {
 	 * @return {String} Track art URL
 	 */
 	this.getTrackArt = function () {
-		if (!this.trackArtImageSelector) {
+		if (!this.trackArtSelector) {
 			return null;
 		}
 
-		let trackArtUrl = $(this.trackArtImageSelector).attr('src');
+		let trackArtUrl = $(this.trackArtSelector).attr('src');
 		if (!trackArtUrl) {
 			let cssProperties = ['background-image', 'background'];
 			for (let property of cssProperties) {
-				let propertyValue = $(this.trackArtImageSelector).css(property);
+				let propertyValue = $(this.trackArtSelector).css(property);
 				if (propertyValue) {
 					trackArtUrl = Util.extractUrlFromCssProperty(propertyValue);
 				}
@@ -281,6 +284,7 @@ var BaseConnector = window.BaseConnector || function () {
 	/**
 	 * Check if given track art URL equals default one.
 	 * Default track arts are not used by the extension.
+	 *
 	 * Override this method for more complex behaviour.
 	 *
 	 * @param  {String} trackArtUrl Track art URL
@@ -319,8 +323,8 @@ var BaseConnector = window.BaseConnector || function () {
 	/**
 	 * Filter object used to filter song metadata.
 	 *
-	 * @see {link MetadataFilter}
-	 * @type {MetadataFilter}
+	 * @see {@link MetadataFilter}
+	 * @type {Object}
 	 */
 	this.filter = MetadataFilter.getTrimFilter();
 
@@ -375,12 +379,12 @@ var BaseConnector = window.BaseConnector || function () {
 	 * Function for all the hard work around detecting and updating state.
 	 */
 	this.stateChangedWorker = () => {
-		var changedFields = [];
+		let changedFields = [];
 
-		var newTrack = this.getTrack() || null;
-		var newArtist = this.getArtist() || null;
+		let newTrack = this.getTrack() || null;
+		let newArtist = this.getArtist() || null;
 
-		var artistTrack = this.getArtistTrack() || Util.emptyArtistTrack;
+		let artistTrack = this.getArtistTrack() || Util.emptyArtistTrack;
 		if (newArtist === null && artistTrack.artist) {
 			newArtist = artistTrack.artist;
 		}
@@ -400,23 +404,23 @@ var BaseConnector = window.BaseConnector || function () {
 			changedFields.push('artist');
 		}
 
-		var newAlbum = this.getAlbum();
+		let newAlbum = this.getAlbum();
 		newAlbum = this.filter.filterAlbum(newAlbum) || null;
 		if (newAlbum !== currentState.album) {
 			currentState.album = newAlbum;
 			changedFields.push('album');
 		}
 
-		var newUID = this.getUniqueID() || null;
+		let newUID = this.getUniqueID() || null;
 		if (newUID !== currentState.uniqueID) {
 			currentState.uniqueID = newUID;
 			changedFields.push('uniqueID');
 		}
 
-		var newDuration = Util.escapeBadTimeValues(this.getDuration());
-		var newCurrentTime = Util.escapeBadTimeValues(this.getCurrentTime());
+		let newDuration = Util.escapeBadTimeValues(this.getDuration());
+		let newCurrentTime = Util.escapeBadTimeValues(this.getCurrentTime());
 
-		var timeInfo = this.getTimeInfo();
+		let timeInfo = this.getTimeInfo();
 		if (newDuration !== null && timeInfo.duration) {
 			newDuration = timeInfo.duration;
 		}
@@ -434,13 +438,13 @@ var BaseConnector = window.BaseConnector || function () {
 			changedFields.push('currentTime');
 		}
 
-		var newIsPlaying = this.isPlaying();
+		let newIsPlaying = this.isPlaying();
 		if (newIsPlaying !== currentState.isPlaying) {
 			currentState.isPlaying = newIsPlaying;
 			changedFields.push('isPlaying');
 		}
 
-		var newTrackArt = this.getTrackArt() || null;
+		let newTrackArt = this.getTrackArt() || null;
 		if (newTrackArt !== currentState.trackArt) {
 			currentState.trackArt = newTrackArt;
 			changedFields.push('trackArt');
@@ -494,7 +498,7 @@ var BaseConnector = window.BaseConnector || function () {
 		 * immediately so we don't miss a quick play/pause/play or
 		 * pause/play/pause sequence.
 		 */
-		var isPlaying = this.isPlaying();
+		let isPlaying = this.isPlaying();
 		if (isPlaying !== currentState.isPlaying) {
 			this.stateChangedWorker();
 		} else {
@@ -524,7 +528,7 @@ window.BaseConnector = BaseConnector;
 
 /**
  * Create object to be overridden in specific connector implementation
- * @type {BaseConnector}
+ * @type {Object}
  */
 let Connector;
 if (window.Connector) {

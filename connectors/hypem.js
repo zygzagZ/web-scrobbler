@@ -1,39 +1,52 @@
 'use strict';
 
-/* global Connector */
+/* global Connector, Util */
 
-if (/^\/premiere\/.*/.test(window.location.pathname)) {
+setupConnector();
 
+function setupConnector() {
+	if (isPremiere()) {
+		setupPremierePlayer();
+	} else {
+		setupDefaultPlayer();
+	}
+}
+
+function isPremiere() {
+	return /^\/premiere\/.*/.test(window.location.pathname);
+}
+
+function setupPremierePlayer() {
 	Connector.playerSelector = '.hype-player';
 
 	Connector.artistSelector = '#album-header-artist';
 
 	Connector.trackSelector = 'li.active .title';
 
-	Connector.trackArtImageSelector = 'img#album-big';
+	Connector.trackArtSelector = 'img#album-big';
 
-	Connector.isPlaying = function() {
-		return $('.hype-player').hasClass('playing');
-	};
-} else {
+	Connector.isPlaying = () => $('.hype-player').hasClass('playing');
+}
+
+function setupDefaultPlayer() {
 	Connector.playerSelector = '#player-controls';
 
 	Connector.artistSelector = '#player-nowplaying [href^="/artist/"]';
 
 	Connector.trackSelector = '#player-nowplaying [href^="/track/"]';
 
-	Connector.getTrackArt = function () {
+	Connector.getTrackArt = () => {
+		let styleProperty = $('.thumb').attr('style');
+		return Util.extractUrlFromCssProperty(styleProperty);
+	};
 
-		var backgroundImage = /url\((.+)\)/.exec($('.haarp-section-track.haarp-active').find('.thumb').attr('style'));
-
-		if (backgroundImage !== null) {
-			backgroundImage = backgroundImage[1];
+	Connector.getUniqueID = () => {
+		let trackUrl = $('#player-nowplaying [href^="/track/"]').attr('href');
+		if (trackUrl) {
+			return trackUrl.split('/').pop();
 		}
-
-		return backgroundImage;
+		return null;
 	};
 
-	Connector.isPlaying = function() {
-		return $('#playerPlay').hasClass('pause');
-	};
+	Connector.isPlaying = () => $('#playerPlay').hasClass('pause');
 }

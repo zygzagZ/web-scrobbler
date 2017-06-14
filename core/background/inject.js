@@ -27,7 +27,7 @@ define([
 		 * on load of every supported page.
 		 */
 		return new Promise((resolve) => {
-			chrome.tabs.sendMessage(tabId, {type: 'ping'}, function (response) {
+			chrome.tabs.sendMessage(tabId, { type: 'v2.onPing' }, (response) => {
 				// if the message was sent to a non existing script or the script
 				// does not implement the 'ping' message, we get response==undefined;
 				if (!response) {
@@ -50,7 +50,7 @@ define([
 
 					// Waits for script to be fully injected before
 					// injecting another one
-					let injectWorker = function() {
+					function injectWorker() {
 						if (scripts.length > 0) {
 							let jsFile = scripts.shift();
 							let injectDetails = {
@@ -64,7 +64,7 @@ define([
 							// done successfully
 							resolve(new InjectResult(InjectResult.MATCHED_AND_INJECTED, tabId, connector));
 						}
-					};
+					}
 
 					injectWorker();
 				} else {

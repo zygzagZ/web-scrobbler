@@ -2,6 +2,6 @@
 
 module.exports = function(driver, connectorSpec) {
 	connectorSpec.shouldContainPlayerElement(driver, {
-		url: 'http://tidido.com/a35184372149385'
+		url: 'https://v.qq.com/x/cover/zz4s3deuelkwbdk/t0023et2neq.html'
 	});
 };

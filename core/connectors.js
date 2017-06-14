@@ -73,8 +73,7 @@ define(function () {
 	{
 		label: 'Jango',
 		matches: ['*://www.jango.com/*'],
-		js: ['connectors/jango.js'],
-		allFrames: true,
+		js: ['connectors/jango.js']
 	},
 
 	{
@@ -139,8 +138,7 @@ define(function () {
 	{
 		label: 'Megalyrics',
 		matches: ['*://megalyrics.ru/*'],
-		js: ['connectors/megalyrics.js'],
-		allFrames: true,
+		js: ['connectors/megalyrics.js']
 	},
 
 	{
@@ -337,9 +335,8 @@ define(function () {
 
 	{
 		label: 'Odnoklassniki',
-		matches: ['*://odnoklassniki.ru/*', '*://ok.ru/*'],
-		js: ['connectors/odnoklassniki.js'],
-		allFrames: true,
+		matches: ['*://odnoklassniki.ru/*', '*://ok.ru/*', '*://www.ok.ru/*'],
+		js: ['connectors/odnoklassniki.js']
 	},
 
 	{
@@ -570,12 +567,6 @@ define(function () {
 	},
 
 	{
-		label: 'Ampya',
-		matches: ['*://ampya.com/*'],
-		js: ['connectors/ampya.js'],
-	},
-
-	{
 		label: 'Jolicloud',
 		matches: ['*://drive.jolicloud.com/*'],
 		js: ['connectors/jolicloud.js'],
@@ -751,7 +742,7 @@ define(function () {
 
 	{
 		label: 'Noise FM',
-		matches: ['https://noisefm.ru/*'],
+		matches: ['*://noisefm.ru/*'],
 		js: ['connectors/noisefm.js'],
 		allFrames: true,
 	},
@@ -844,12 +835,6 @@ define(function () {
 		label: 'Genie',
 		matches: ['http://www.genie.co.kr/player/fPlayer*'],
 		js: ['connectors/genie.js'],
-	},
-
-	{
-		label: 'Tidido',
-		matches: ['*://tidido.com/*'],
-		js: ['connectors/tidido.js'],
 	},
 
 	{
@@ -1099,8 +1084,13 @@ define(function () {
 	{
 		label: 'QQ Music',
 		matches: ['*://y.qq.com/portal/*'],
-		js: ['connectors/qq.js'],
+		js: ['connectors/qq-music.js'],
 		version: 2
+	},
+	{
+		label: 'QQ Video',
+		matches: ['*://v.qq.com/x/*'],
+		js: ['connectors/qq-video.js']
 	},
 
 	{

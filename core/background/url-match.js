@@ -14,11 +14,13 @@ function createPattern(input) {
 	if (typeof input !== 'string') {
 		return null;
 	}
-	var match_pattern = '^',
-		regEscape = function (s) {
-			return s.replace(/[[^$.|?*+(){}\\]/g, '\\$&');
-		},
-		result = /^(\*|https?|file|ftp|chrome-extension):\/\//.exec(input);
+
+	function regEscape(s) {
+		return s.replace(/[[^$.|?*+(){}\\]/g, '\\$&');
+	}
+
+	let match_pattern = '^';
+	let result = /^(\*|https?|file|ftp|chrome-extension):\/\//.exec(input);
 
 	// Parse scheme
 	if (!result) {
@@ -33,10 +35,12 @@ function createPattern(input) {
 			return null;
 		}
 		input = input.substr(result[0].length);
-		if (result[0] === '*') {    // host is '*'
+		// Host is '*'
+		if (result[0] === '*') {
 			match_pattern += '[^/]+';
 		} else {
-			if (result[1]) {         // Subdomain wildcard exists
+			// Subdomain wildcard exists
+			if (result[1]) {
 				match_pattern += '(?:[^/]+\\.)?';
 			}
 			// Append host (escape special regex characters)

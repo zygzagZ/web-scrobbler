@@ -123,19 +123,19 @@ define([
 					resolve(notificationId);
 				};
 				// @ifndef FIREFOX
-				const createNotification = function(permissionLevel) {
+				function createNotification(permissionLevel) {
 					if (permissionLevel !== 'granted') {
 						reject();
 						return;
 					}
-				// @endif
+					// @endif
 					try {
 						chrome.notifications.create('', options, notificationCreatedCb);
 					} catch (e) {
 						reject(e);
 					}
 				// @ifndef FIREFOX
-				};
+				}
 
 				chrome.notifications.getPermissionLevel(createNotification);
 				// @endif
@@ -152,13 +152,11 @@ define([
 			return;
 		}
 
-		let contextMessage = Util.getCurrentTime();
-		if (song.metadata.connector) {
-			let connectorLabel = song.metadata.connector.label;
-			contextMessage = `${contextMessage} · ${connectorLabel}`;
-		}
+		let currentTime = Util.getCurrentTime();
+		let connectorLabel = song.metadata.connector.label;
+		let contextMessage = `${currentTime} · ${connectorLabel}`;
 
-		var options = {
+		let options = {
 			iconUrl: song.getTrackArt() || '/icons/default_cover_art.png',
 			// @ifdef CHROME
 			title: song.getTrack(),
