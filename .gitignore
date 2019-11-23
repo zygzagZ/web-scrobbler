@@ -1,9 +1,26 @@
-build
-nbproject
-node_modules
+# Build
+/build/
+/*.zip
+
+# IDE
+/.idea/
+/nbproject/
+/.tern-project
+/*.iml
+
+# OS
 .DS_Store
-.idea
-.tern-project
-*.iml
-*.zip
-*.log
+
+# Vendor
+/node_modules/
+
+# Private
+.env
+
+# Other
+/*.log
+
+# Coverage
+.nyc_output/
+.nyc_cache/
+coverage/

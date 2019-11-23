@@ -1,80 +1,122 @@
-# Last.fm Scrobbler
+# Web Scrobbler
 
-[![Chrome Web Store][0]][1] [![Mozilla Add-on][14]][15]
+[![Chrome Web Store][WebStoreBadge]][WebStore]
+[![AMO][AmoBadge]][Amo]
+[![Gitter][GitterBadge]][Gitter]
 
-[![build status][2]][3] [![Gitter][4]][5] [![devDependencies status][6]][7]
 
-Last.fm Scrobbler is created for people who listen to music online through their browser, and would like to keep an updated playback history using [Last.fm][8]'s scrobbling service.
+[![devDependencies status][DavidDmBadge]][DavidDm]
+[![Test status][GitHubActionsBadge]][GitHubActions]
+[![Codacy Badge][CodacyBadge]][Codacy]
+[![Codacy Coverage Badge][CodacyCoverageBadge]][Codacy]
 
-For more information and discussion please visit [the extension page][12] on add0n.com website.
 
-## Usage
 
-You can get the extension either from Chrome Web Store or <abbr title="addons.mozilla.org">AMO</abbr> directly or by installing as an [unpacked extension][9].
+Web Scrobbler helps online music listeners to scrobble their playback history.
+
+## Supported Services
+
+-   [Last.fm][LastFm]
+-   [Libre.fm][LibreFm]
+-   [ListenBrainz][ListenBrainz]
+
+## Installation
+
+The extension can be either downloaded from the Chrome Web Store, <abbr title="addons.mozilla.org">AMO</abbr>, or installed as an [unpacked extension][DocsUnpacked].
 
 ### Chrome Web Store
 
-You can install it directly from [Chrome Web Store][1], if you use Chrome.
+It can be installed directly from [Chrome Web Store][WebStore] with Chrome used.
 
-Opera users can install the extension from Chrome Web Store using the [Download Chrome Extension][13] addon for Opera.
+Opera users can install the extension from Chrome Web Store using the [Download Chrome Extension][DownloadChromeExt] addon for Opera.
 
-### AMO
+### Addons.mozilla.org
 
-For those who prefer Firefox as a main browser, the extension is available [here][15].
+For those who prefer Firefox as a main browser, the extension is available on [AMO][Amo].
 
-### Unpacked extension
+### Install from source code
 
-If you use Chrome or Chrome-based extension (like Opera) you can install the extension by the following steps:
-
-1. Grab a copy of the source code either by cloning the repository or by downloading and extracting the zipped source.
-
-2. Next, enable "Developer mode" within on your Chrome-based browser.
-
-3. Select "Load unpacked extension" and select the location you have saved the source.
+To install the extension from sources or zip file, read [this page][WikiUnpacked] if you're on Chrome, or [this one][WikiTempAddon] if you use Firefox.
 
 ## Development
 
-Check the [wiki page][10] to understand development of connectors. Please also read [contributions guidelines](.github/CONTRIBUTING.md).
+Check the [wiki page][WikiDev] to understand development of connectors. Please also read [contributions guidelines][Contributing].
+
+### Translations
+
+We use Transifex to maintain translations. If you want to translate the extension, follow [this][Translations] wiki page for details.
 
 ### Gitter
 
-We use gitter and you can join us @ [david-sabata/web-scrobbler][5].
+We use Gitter and you can join us @ [web-scrobbler/web-scrobbler][Gitter].
 
 ## Used 3rd-party libraries
 
-* [Bootstrap v2.3.2][16]
-* [Can JS v2.3.27][20]
-* [Font Awesome v.3.2.1][17]
-* [jQuery v2.1.0][18]
-* [RequireJS v2.3.3][19]
+-   [Bootstrap v4.3.1][Bootstrap]
+-   [Font Awesome v5.9.0][FontAwesome]
+-   [JavaScript MD5 v2.11.0][JavaScriptMd5]
+-   [jQuery v3.2.1][jQuery]
+-   [RequireJS v2.3.6][RequireJs]
+-   [Showdown v1.9.0][Showdown]
+-   [webextension-polyfill v0.4.0][WebextPolyfill]
+
+## Media
+
+Follow [@web_scrobbler][Twitter] on Twitter to receive the latest news and updates.
 
 ## Privacy Policy
 
-See the [privacy policy][11].
+See the [privacy policy][Privacy].
 
 ## License
 
-See the [license file](LICENSE.txt).
+See the [license file][License].
 
-[0]: https://img.shields.io/chrome-web-store/d/hhinaapppaileiechjoiifaancjggfjm.svg?style=flat
-[1]: https://chrome.google.com/webstore/detail/lastfm-scrobbler/hhinaapppaileiechjoiifaancjggfjm
-[2]: https://api.travis-ci.org/david-sabata/web-scrobbler.svg
-[3]: https://travis-ci.org/david-sabata/web-scrobbler
-[4]: https://badges.gitter.im/Join%20Chat.svg
-[5]: https://gitter.im/david-sabata/web-scrobbler
-[6]: https://david-dm.org/david-sabata/web-scrobbler/dev-status.svg
-[7]: https://david-dm.org/david-sabata/web-scrobbler?type=dev
-[8]: http://www.last.fm/
-[9]: https://developer.chrome.com/extensions/getstarted#unpacked
-[10]: https://github.com/david-sabata/web-scrobbler/wiki/Connectors-development
-[11]: https://github.com/david-sabata/web-scrobbler/wiki/Privacy-policy
-[12]: http://add0n.com/lastfm-scrobbler.html
-[13]: https://addons.opera.com/extensions/details/app_id/kipjbhgniklcnglfaldilecjomjaddfi
-[14]: https://img.shields.io/amo/users/web-scrobbler.svg
-[15]: https://addons.mozilla.org/en-US/firefox/addon/web-scrobbler/
+<!-- Badges -->
+[AmoBadge]: https://img.shields.io/amo/v/web-scrobbler.svg
+[CodacyBadge]: https://api.codacy.com/project/badge/Grade/bb2841f875014aaea6a354da6c96bdee
+[CodacyCoverageBadge]: https://api.codacy.com/project/badge/Coverage/bb2841f875014aaea6a354da6c96bdee
+[DavidDmBadge]: https://david-dm.org/web-scrobbler/web-scrobbler/dev-status.svg
+[GitHubActionsBadge]: https://github.com/web-scrobbler/web-scrobbler/workflows/test/badge.svg
+[GitterBadge]: https://badges.gitter.im/Join%20Chat.svg
+[WebStoreBadge]: https://img.shields.io/chrome-web-store/v/hhinaapppaileiechjoiifaancjggfjm.svg
 
-[16]: http://getbootstrap.com/2.3.2/assets/bootstrap.zip
-[17]: http://fontawesome.io/3.2.1/assets/font-awesome.zip
-[18]: http://code.jquery.com/jquery-2.1.0.min.js
-[19]: http://requirejs.org/docs/release/2.3.3/minified/require.js
-[20]: http://canjs.com/release/2.3.27/can.jquery.min.js
+<!-- Dependencies -->
+[Bootstrap]: https://github.com/twbs/bootstrap/releases/download/v4.3.1/bootstrap-4.3.1-dist.zip
+[FontAwesome]: https://use.fontawesome.com/releases/v5.9.0/fontawesome-free-5.9.0-web.zip
+[JavaScriptMd5]: https://github.com/blueimp/JavaScript-MD5/archive/v2.11.0.zip
+[jQuery]: http://code.jquery.com/jquery-3.2.1.min.js
+[RequireJs]: http://requirejs.org/docs/release/2.3.6/minified/require.js
+[Showdown]: https://github.com/showdownjs/showdown/archive/1.9.0.zip
+[WebextPolyfill]: https://unpkg.com/webextension-polyfill@0.4.0/dist/
+
+<!-- Docs -->
+[Contributing]: https://github.com/web-scrobbler/web-scrobbler/blob/master/.github/CONTRIBUTING.md
+[DocsUnpacked]: https://developer.chrome.com/extensions/getstarted#unpacked
+[License]: https://github.com/web-scrobbler/web-scrobbler/blob/master/LICENSE.md
+[Privacy]: https://github.com/web-scrobbler/web-scrobbler/blob/master/src/_locales/en/privacy.md
+[Translations]: https://github.com/web-scrobbler/web-scrobbler/wiki/Translate-the-extension
+
+<!-- Download -->
+[WebStore]: https://chrome.google.com/webstore/detail/lastfm-scrobbler/hhinaapppaileiechjoiifaancjggfjm
+[Amo]: https://addons.mozilla.org/en-US/firefox/addon/web-scrobbler/
+
+<!-- Other -->
+[DownloadChromeExt]: https://addons.opera.com/extensions/details/app_id/kipjbhgniklcnglfaldilecjomjaddfi
+
+<!-- Related pages -->
+[Codacy]: https://app.codacy.com/project/web-scrobbler/web-scrobbler/dashboard
+[DavidDm]: https://david-dm.org/web-scrobbler/web-scrobbler?type=dev
+[GitHubActions]: https://github.com/web-scrobbler/web-scrobbler/actions
+[Gitter]: https://gitter.im/david-sabata/web-scrobbler
+[Twitter]: https://twitter.com/web_scrobbler
+
+<!-- Services -->
+[LastFm]: http://www.last.fm/
+[LibreFm]: https://libre.fm/
+[ListenBrainz]: https://listenbrainz.org/
+
+<!-- Wiki pages -->
+[WikiDev]: https://github.com/web-scrobbler/web-scrobbler/wiki/Connectors-development
+[WikiTempAddon]: https://github.com/web-scrobbler/web-scrobbler/wiki/Install-a-temporary-add-on
+[WikiUnpacked]: https://github.com/web-scrobbler/web-scrobbler/wiki/Install-an-unpacked-extension
